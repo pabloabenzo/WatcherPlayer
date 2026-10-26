@@ -5,7 +5,7 @@
 
 import Foundation
 
-enum YouTubeServiceError: LocalizedError {
+nonisolated enum YouTubeServiceError: LocalizedError, Equatable {
     case missingAPIKey
     case invalidURL
     case invalidResponse
@@ -32,12 +32,12 @@ protocol YouTubeServicing {
 
 struct YouTubeService: YouTubeServicing {
     private let apiKey: String
-    private let session: URLSession
+    private let httpClient: HTTPClient
     private let decoder: JSONDecoder
 
-    init(apiKey: String = AppConfiguration.youTubeAPIKey, session: URLSession = .shared) {
+    init(apiKey: String = AppConfiguration.youTubeAPIKey, httpClient: HTTPClient = URLSessionHTTPClient()) {
         self.apiKey = apiKey
-        self.session = session
+        self.httpClient = httpClient
         self.decoder = JSONDecoder()
     }
 
@@ -96,10 +96,9 @@ private extension YouTubeService {
     }
 
     func fetch<T: Decodable>(_ url: URL) async throws -> T {
-        let (data, response) = try await session.data(from: url)
+        let (data, response) = try await httpClient.data(from: url)
 
-        guard let httpResponse = response as? HTTPURLResponse,
-              (200..<300).contains(httpResponse.statusCode) else {
+        guard (200..<300).contains(response.statusCode) else {
             throw YouTubeServiceError.invalidResponse
         }
 

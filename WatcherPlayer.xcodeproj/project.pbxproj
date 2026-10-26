@@ -45,6 +45,11 @@
 			path = WatcherPlayer;
 			sourceTree = "<group>";
 		};
+		DD9918E32EB1505B00D55940 /* WatcherPlayerTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = WatcherPlayerTests;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +75,7 @@
 			isa = PBXGroup;
 			children = (
 				DD9918C42EB1505400D55940 /* WatcherPlayer */,
+				DD9918E32EB1505B00D55940 /* WatcherPlayerTests */,
 				DD9918C52EB1505400D55940 /* Packages */,
 				DD9918C32EB1505400D55940 /* Products */,
 			);
@@ -130,6 +136,9 @@
 			);
 			dependencies = (
 				DD9918D62EB1505B00D55940 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				DD9918E32EB1505B00D55940 /* WatcherPlayerTests */,
 			);
 			name = WatcherPlayerTests;
 			packageProductDependencies = (
